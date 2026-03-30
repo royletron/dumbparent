@@ -1,0 +1,117 @@
+---
+/**
+ * Homepage — entry point for parents.
+ *
+ * Shows age group cards as the primary navigation, then a quick grid of
+ * recently updated guides.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GuideCard from '../components/GuideCard.astro';
+import { getAllGuides } from '../utils/guides';
+import { AGE_GROUPS, AGE_GROUP_LABELS } from '../content/config';
+
+const recentGuides = (await getAllGuides()).slice(0, 6);
+
+// Emoji and colour per age group
+const ageConfig = {
+  'under-5': { emoji: '🍼', colour: 'bg-pink-50   border-pink-200   hover:border-pink-400',   text: 'text-pink-700'  },
+  '5-7':     { emoji: '🎮', colour: 'bg-purple-50  border-purple-200  hover:border-purple-400',  text: 'text-purple-700' },
+  '8-10':    { emoji: '📱', colour: 'bg-blue-50    border-blue-200    hover:border-blue-400',    text: 'text-blue-700'   },
+  '11-13':   { emoji: '🎧', colour: 'bg-teal-50    border-teal-200    hover:border-teal-400',    text: 'text-teal-700'   },
+  '14+':     { emoji: '💻', colour: 'bg-slate-50   border-slate-200   hover:border-slate-400',   text: 'text-slate-700'  },
+} as const;
+---
+
+<BaseLayout title="Home" description="Simple guides for parents setting up devices and apps safely for their kids.">
+
+  <!-- ── Hero ───────────────────────────────────────────────────── -->
+  <section class="bg-gradient-to-b from-brand-700 to-brand-600 text-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold mb-5 leading-tight">
+        Set up your kid's devices.<br class="hidden sm:block" /> Without the tech headache.
+      </h1>
+      <p class="text-brand-100 text-lg sm:text-xl max-w-xl mx-auto mb-8">
+        Plain-English, step-by-step guides for every device and app — so you know
+        what your child can access and what to watch out for.
+      </p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="#by-age" class="bg-white text-brand-700 font-semibold px-6 py-3 rounded-lg hover:bg-brand-50 transition-colors">
+          Start by age →
+        </a>
+        <a href="/devices" class="border border-white/40 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
+          Browse by device
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Age group selection ─────────────────────────────────────── -->
+  <section id="by-age" class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+    <h2 class="text-2xl font-bold text-slate-900 mb-2">How old is your child?</h2>
+    <p class="text-slate-500 mb-8">Pick an age group to see device and app guides tailored to that stage.</p>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      {AGE_GROUPS.map((age) => {
+        const cfg = ageConfig[age];
+        return (
+          <a
+            href={`/age/${age}`}
+            class={`flex flex-col items-center gap-2 rounded-xl border-2 p-6 text-center transition-colors ${cfg.colour}`}
+          >
+            <span class="text-4xl" role="img" aria-hidden="true">{cfg.emoji}</span>
+            <span class={`font-semibold text-sm ${cfg.text}`}>{AGE_GROUP_LABELS[age]}</span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- ── How it works ────────────────────────────────────────────── -->
+  <section class="bg-slate-50 border-y border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+      <h2 class="text-2xl font-bold text-slate-900 mb-10 text-center">How it works</h2>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {[
+          {
+            icon: '🔍',
+            title: 'Find your guide',
+            body: 'Search by your child\'s age, the device they\'re using, or the app you want to set up.',
+          },
+          {
+            icon: '🛠️',
+            title: 'Follow the steps',
+            body: 'Clear, numbered instructions with screenshots. No jargon — if we use a tech term, we explain it.',
+          },
+          {
+            icon: '👀',
+            title: 'Know the risks',
+            body: 'Every guide ends with an honest look at what still slips through — so you can decide what\'s right for your family.',
+          },
+        ].map((item) => (
+          <div class="flex flex-col items-center text-center gap-3">
+            <span class="text-4xl" role="img" aria-hidden="true">{item.icon}</span>
+            <h3 class="font-semibold text-slate-800">{item.title}</h3>
+            <p class="text-slate-600 text-sm">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Recent guides ───────────────────────────────────────────── -->
+  {recentGuides.length > 0 && (
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+      <div class="flex justify-between items-baseline mb-8">
+        <h2 class="text-2xl font-bold text-slate-900">Latest guides</h2>
+        <a href="/devices" class="text-sm text-brand-600 hover:underline">View all →</a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {recentGuides.map((guide) => (
+          <GuideCard guide={guide} />
+        ))}
+      </div>
+    </section>
+  )}
+
+</BaseLayout>

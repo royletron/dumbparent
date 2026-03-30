@@ -1,0 +1,26 @@
+---
+/**
+ * /guides/[...slug] — Individual guide page.
+ *
+ * Renders the MDX content inside GuideLayout.
+ * One page is generated for every file in src/content/guides/.
+ */
+
+import { getCollection } from 'astro:content';
+import GuideLayout from '../../layouts/GuideLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props:  { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await guide.render();
+---
+
+<GuideLayout guide={guide}>
+  <Content />
+</GuideLayout>

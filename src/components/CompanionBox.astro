@@ -1,0 +1,52 @@
+---
+/**
+ * CompanionBox.astro
+ *
+ * Shown at the top of a guide when the parent needs a companion device
+ * or app to administer the child's device (e.g. Google Family Link on
+ * the parent's phone).
+ *
+ * Props:
+ *   devices - List of companion device descriptions
+ *   apps    - List of companion app descriptions
+ */
+
+interface Props {
+  devices?: string[];
+  apps?: string[];
+}
+
+const { devices = [], apps = [] } = Astro.props;
+---
+
+<aside class="mb-8 bg-blue-50 border border-blue-200 rounded-xl p-5">
+  <div class="flex gap-3">
+    <!-- Info icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <div>
+      <p class="font-semibold text-blue-900 mb-2">You'll need a companion device or app</p>
+      <p class="text-sm text-blue-800 mb-3">
+        To set this up and manage it over time, you'll also need the following
+        on <em>your own</em> device:
+      </p>
+      {devices.length > 0 && (
+        <div class="mb-2">
+          <p class="text-xs font-semibold uppercase tracking-wide text-blue-700 mb-1">Devices</p>
+          <ul class="text-sm text-blue-800 space-y-1 list-disc list-inside">
+            {devices.map((d) => <li>{d}</li>)}
+          </ul>
+        </div>
+      )}
+      {apps.length > 0 && (
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-blue-700 mb-1">Apps</p>
+          <ul class="text-sm text-blue-800 space-y-1 list-disc list-inside">
+            {apps.map((a) => <li>{a}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</aside>

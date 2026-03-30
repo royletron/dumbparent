@@ -1,0 +1,40 @@
+---
+/**
+ * WhatToExpect.astro
+ *
+ * Section showing parents what the child will actually be able to access
+ * once the guide setup is complete, and what the remaining limitations are.
+ *
+ * Use two sub-components:
+ *   <CanDo>   — things the child CAN do after setup
+ *   <CannotDo> — things that are blocked
+ *
+ * Usage in MDX:
+ *
+ *   import WhatToExpect from '../../../components/WhatToExpect.astro';
+ *   import CanDo        from '../../../components/CanDo.astro';
+ *   import CannotDo     from '../../../components/CannotDo.astro';
+ *
+ *   <WhatToExpect>
+ *     <CanDo>Watch age-appropriate videos curated by YouTube</CanDo>
+ *     <CanDo>Search for specific topics (with filtering)</CanDo>
+ *     <CannotDo>Access regular YouTube or sign in to an account</CannotDo>
+ *     <CannotDo>See comments on videos</CannotDo>
+ *   </WhatToExpect>
+ */
+---
+
+<section class="not-prose my-8 rounded-xl border border-slate-200 overflow-hidden">
+  <div class="bg-slate-50 border-b border-slate-200 px-5 py-3">
+    <h2 class="font-semibold text-slate-800 text-base flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      What your child can access after setup
+    </h2>
+  </div>
+  <div class="p-5 space-y-1">
+    <slot />
+  </div>
+</section>

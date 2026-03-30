@@ -1,0 +1,59 @@
+---
+/**
+ * Step.astro
+ *
+ * A single numbered step within a setup guide. Use inside the <Steps>
+ * wrapper component, which handles numbering automatically.
+ *
+ * Usage in MDX:
+ *
+ *   import { Steps, Step } from '@components/Steps.astro';
+ *   -- or more commonly --
+ *   import Steps from '@components/Steps.astro';
+ *
+ *   <Steps>
+ *     <Step title="Open Settings">
+ *       Tap the **Settings** icon on your home screen.
+ *       ![Settings icon screenshot](/images/guides/ipad-settings.jpg)
+ *     </Step>
+ *     <Step title="Tap Screen Time">
+ *       Scroll down and tap **Screen Time**.
+ *     </Step>
+ *   </Steps>
+ *
+ * Props:
+ *   title    - Short label for this step (shown in bold)
+ *   optional - Mark the step as optional (adds a badge)
+ */
+
+interface Props {
+  title: string;
+  optional?: boolean;
+}
+
+const { title, optional = false } = Astro.props;
+---
+
+<li class="relative pl-12">
+  <!-- Step number bubble — injected by the parent <Steps> via CSS counter -->
+  <div
+    class="absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full
+           bg-brand-600 text-white text-sm font-bold select-none"
+    aria-hidden="true"
+  >
+    <!-- Number is rendered via CSS counter in Steps.astro -->
+    <span class="step-number"></span>
+  </div>
+
+  <div class="mb-6 pt-0.5">
+    <p class="font-semibold text-slate-900 text-base mb-2 flex items-center gap-2">
+      {title}
+      {optional && (
+        <span class="text-xs font-normal bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">Optional</span>
+      )}
+    </p>
+    <div class="text-slate-700 text-sm space-y-3 [&_img]:my-3 [&_img]:rounded-lg [&_img]:shadow-md [&_img]:border [&_img]:border-slate-200">
+      <slot />
+    </div>
+  </div>
+</li>

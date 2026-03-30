@@ -1,0 +1,91 @@
+---
+/**
+ * Callout.astro
+ *
+ * A highlighted box for important notes. Four types available:
+ *   - tip      → green  — helpful hints
+ *   - info     → blue   — neutral information
+ *   - warning  → amber  — something to be careful about
+ *   - danger   → red    — a known risk or side-door
+ *
+ * Usage in MDX:
+ *
+ *   import Callout from '../../../components/Callout.astro';
+ *
+ *   <Callout type="danger" title="Side door: YouTube search">
+ *     Even with Restricted Mode on, users can still search for content.
+ *     Monitor watch history regularly.
+ *   </Callout>
+ *
+ * Props:
+ *   type  - 'tip' | 'info' | 'warning' | 'danger'
+ *   title - Bold heading inside the callout (optional)
+ */
+
+interface Props {
+  type?: 'tip' | 'info' | 'warning' | 'danger';
+  title?: string;
+}
+
+const { type = 'info', title } = Astro.props;
+
+const config = {
+  tip: {
+    bg:      'bg-green-50',
+    border:  'border-green-300',
+    title:   'text-green-900',
+    body:    'text-green-800',
+    iconColor: 'text-green-500',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+    defaultTitle: 'Tip',
+  },
+  info: {
+    bg:      'bg-blue-50',
+    border:  'border-blue-300',
+    title:   'text-blue-900',
+    body:    'text-blue-800',
+    iconColor: 'text-blue-500',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+    defaultTitle: 'Note',
+  },
+  warning: {
+    bg:      'bg-amber-50',
+    border:  'border-amber-300',
+    title:   'text-amber-900',
+    body:    'text-amber-800',
+    iconColor: 'text-amber-500',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />`,
+    defaultTitle: 'Warning',
+  },
+  danger: {
+    bg:      'bg-red-50',
+    border:  'border-red-300',
+    title:   'text-red-900',
+    body:    'text-red-800',
+    iconColor: 'text-red-500',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />`,
+    defaultTitle: 'Side door',
+  },
+} as const;
+
+const c = config[type];
+const heading = title ?? c.defaultTitle;
+---
+
+<aside class={`not-prose my-6 rounded-xl border p-4 ${c.bg} ${c.border}`} role="note">
+  <div class="flex gap-3">
+    <svg xmlns="http://www.w3.org/2000/svg" class={`h-5 w-5 shrink-0 mt-0.5 ${c.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <Fragment set:html={c.icon} />
+    </svg>
+    <div class={`text-sm ${c.body}`}>
+      <p class={`font-semibold mb-1 ${c.title}`}>{heading}</p>
+      <div class="space-y-1 [&_p]:m-0">
+        <slot />
+      </div>
+    </div>
+  </div>
+</aside>

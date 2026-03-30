@@ -1,0 +1,261 @@
+---
+title: "Setting up Screen Time on iPhone for teenagers"
+description: "Use Apple's built-in Screen Time to set app limits, block adult content, and stop your teen changing the restrictions without you knowing."
+ageGroups:
+  - "11-13"
+  - "14+"
+device: "iphone"
+deviceLabel: "iPhone"
+app: "device-setup"
+appLabel: "Device setup"
+timeRequired: "25 minutes"
+difficulty: "medium"
+companionRequired: true
+companionDevices:
+  - "Your own iPhone or iPad"
+companionApps:
+  - "Apple Family Sharing — free, managed from Settings on your own iPhone"
+riskLevel: "medium"
+riskSummary: "Screen Time can be bypassed by a determined teenager who knows the passcode, does a factory reset, or uses a second device. It works best alongside regular conversations."
+lastUpdated: 2025-01-10
+tags:
+  - apple
+  - iphone
+  - screen-time
+  - teenagers
+  - ios
+---
+
+import Steps         from '../../components/Steps.astro';
+import Step          from '../../components/Step.astro';
+import Callout       from '../../components/Callout.astro';
+import WhatToExpect  from '../../components/WhatToExpect.astro';
+import CanDo         from '../../components/CanDo.astro';
+import CannotDo      from '../../components/CannotDo.astro';
+
+## Before you start
+
+Apple Screen Time is built into every iPhone running iOS 12 or later. It lets
+you set content filters, daily app limits, and communication controls. When
+combined with **Family Sharing**, you can manage it all from your own iPhone
+without needing to touch your child's phone.
+
+This guide is written for parents of **teenagers (11–17)**. For younger children
+with an iPad, the process is similar but we recommend stricter settings.
+
+<Callout type="info" title="What you'll need">
+- Your child's iPhone running iOS 16 or later (Settings → General → About)
+- Your own iPhone or iPad signed in to the same Apple Family Sharing group
+- Your child's Apple ID credentials — or help setting one up
+- About 25 minutes
+</Callout>
+
+<Callout type="warning" title="Have the conversation first">
+  Teenagers often feel that Screen Time is surveillance rather than safety.
+  Before you set this up, explain why you're doing it and what you will and
+  won't be able to see. Agreeing on limits together leads to much better outcomes
+  than setting them without discussion.
+</Callout>
+
+---
+
+## Step 1 — Set up Family Sharing (if not already done)
+
+<Steps>
+  <Step title="On your own iPhone, open Settings and tap your name">
+    Your Apple ID settings appear at the top of Settings (below the search bar).
+    Tap your name, then tap **Family Sharing**.
+  </Step>
+
+  <Step title="Add your child to your Family group">
+    Tap **Add Family Member** → **Create Child Account** (if your child doesn't
+    have an Apple ID) or **Invite** (if they already do).
+
+    If creating an account for a child under 13, Apple will require your consent
+    as the parent.
+  </Step>
+</Steps>
+
+---
+
+## Step 2 — Turn on Screen Time
+
+<Steps>
+  <Step title="On your child's iPhone, go to Settings → Screen Time">
+    Scroll down in Settings until you see **Screen Time** (below the Do Not
+    Disturb section). Tap it.
+  </Step>
+
+  <Step title="Tap 'Turn On Screen Time'">
+    A short explanation screen appears. Tap **Continue**, then select
+    **This is my child's iPhone**.
+  </Step>
+
+  <Step title="Set a Screen Time passcode">
+    Choose a 4-digit passcode that **only you know**. This prevents your child
+    from changing the Screen Time settings.
+
+    <Callout type="warning">
+      Do not use a passcode your child knows, such as your device passcode or
+      their birthday. This is the single most important step — if they know the
+      passcode, all other restrictions can be removed.
+    </Callout>
+  </Step>
+</Steps>
+
+---
+
+## Step 3 — Block inappropriate content
+
+<Steps>
+  <Step title="Open Content & Privacy Restrictions">
+    In Screen Time settings, tap **Content & Privacy Restrictions** and turn
+    the toggle **on** at the top.
+  </Step>
+
+  <Step title="Set app and content ratings">
+    Tap **Content Restrictions** and review each category:
+
+    | Category | Recommended setting for 13+ |
+    |---|---|
+    | Music, Podcasts & News | Explicit content: Off |
+    | Movies | 15 (or 12 for younger teens) |
+    | TV Shows | 15 |
+    | Books | Off (blocks explicit books) |
+    | Apps | 12+ or 17+ depending on age |
+    | Web Content | Limit Adult Websites |
+    | Siri | Explicit language: Off |
+
+  </Step>
+
+  <Step title="Restrict web content">
+    Under **Content Restrictions → Web Content**, choose **Limit Adult Websites**.
+    This blocks most adult sites while keeping general browsing available.
+
+    For stricter control, choose **Allowed Websites Only** — but be aware this
+    will frustrate a teenager who needs to do homework research.
+  </Step>
+
+  <Step title="Block app installation and deletion" optional>
+    In **Content & Privacy → iTunes & App Store Purchases**:
+    - Set **Installing Apps** to **Don't Allow**
+    - Set **Deleting Apps** to **Don't Allow**
+
+    This means your child cannot install new apps or delete apps (which some
+    use to hide content by deleting then reinstalling).
+
+    <Callout type="tip">
+      Instead of blocking installs entirely, you can enable **Ask to Buy** via
+      Family Sharing. Your child can request an app; you get a notification and
+      can approve or decline.
+    </Callout>
+  </Step>
+</Steps>
+
+---
+
+## Step 4 — Set app time limits
+
+<Steps>
+  <Step title="Open App Limits in Screen Time">
+    Back in **Screen Time**, tap **App Limits → Add Limit**.
+  </Step>
+
+  <Step title="Choose categories to limit">
+    You can limit by category (e.g. **Social Networking**, **Entertainment**)
+    or by individual app. Tap a category, then set the daily time limit.
+
+    Common settings:
+    - Social Media: 1–2 hours per day
+    - Games: 1 hour per day
+    - Entertainment (streaming): 2 hours per day
+  </Step>
+
+  <Step title="Turn on Downtime">
+    Tap **Downtime** and set a start and end time. During Downtime, only apps
+    you specifically allow will work — everything else is greyed out.
+
+    A common choice is **9:00 pm to 7:00 am** to encourage sleep.
+  </Step>
+</Steps>
+
+---
+
+## Step 5 — Manage from your own device
+
+<Steps>
+  <Step title="Check your child's usage from your iPhone">
+    On your iPhone, go to **Settings → Screen Time** and tap your child's name
+    under Family. You can see a summary of their daily usage and adjust limits
+    remotely — without needing their phone.
+  </Step>
+</Steps>
+
+---
+
+## What your child can access
+
+<WhatToExpect>
+  <CanDo>Browse the web (with adult content filtering applied)</CanDo>
+  <CanDo>Use approved apps within their daily time limits</CanDo>
+  <CanDo>Make and receive calls and messages</CanDo>
+  <CanDo>Request app downloads (if Ask to Buy is enabled)</CanDo>
+  <CannotDo>Change Screen Time settings without your passcode</CannotDo>
+  <CannotDo>Install apps without your approval (if restricted)</CannotDo>
+  <CannotDo>Access explicitly rated content in Apple's ecosystem</CannotDo>
+  <CannotDo>Use apps outside of permitted hours (during Downtime)</CannotDo>
+</WhatToExpect>
+
+---
+
+## Side doors to watch out for
+
+<Callout type="danger" title="Side door: Screen Time can be turned off with a factory reset">
+  If a teenager performs a factory reset (Settings → General → Transfer or
+  Reset iPhone → Erase All Content) and sets the phone up as a new device,
+  Screen Time is removed.
+
+  **What to do:** Make sure they cannot do this without your help — under
+  **Content & Privacy → Allowed Changes**, set **Passcode Changes** to
+  **Don't Allow**. Note that a determined teenager can still contact Apple
+  Support if they know their Apple ID.
+</Callout>
+
+<Callout type="danger" title="Side door: VPNs bypass web content filtering">
+  A teenager who installs a VPN app can bypass web content restrictions
+  entirely.
+
+  **What to do:** Block the installation of new apps, or check regularly for
+  VPN apps. In Content & Privacy, set **VPN configurations** to **Don't Allow**.
+</Callout>
+
+<Callout type="danger" title="Side door: A second device">
+  Screen Time only controls the one device. A second phone, a friend's device,
+  or a games console with a browser gives unrestricted access.
+
+  **What to do:** This is a family conversation rather than a technical fix.
+  Talk about expectations around other devices and what is and isn't okay.
+</Callout>
+
+<Callout type="danger" title="Side door: iMessage and AirDrop">
+  Screen Time does not filter the content of iMessages, and AirDrop can be
+  used to receive files from strangers in public places.
+
+  **What to do:** In **Screen Time → Communication Limits**, you can restrict
+  who your child can call and message. For AirDrop, go to **Settings →
+  General → AirDrop** and set it to **Contacts Only** or **Receiving Off**.
+</Callout>
+
+---
+
+## Tips for ongoing management
+
+- **Check the weekly report** — Screen Time sends you a summary every Sunday.
+  Use it as a prompt to discuss what your teen has been spending time on.
+- **Be consistent** — if you set a 1-hour games limit, stick to it. Caving
+  regularly teaches that the limits can be negotiated around.
+- **Revisit limits as they get older** — what's right for a 13-year-old isn't
+  right for a 16-year-old. Set a reminder to review settings every six months.
+- **Include your teen in the process** — showing them what you can see builds
+  trust. Many teenagers are less bothered by monitoring when they feel it's
+  transparent rather than secretive.
