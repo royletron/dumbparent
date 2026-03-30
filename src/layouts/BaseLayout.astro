@@ -10,6 +10,8 @@
  *   description - Meta description for SEO
  */
 
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -34,53 +36,86 @@ const fullTitle = `${title} | Dumb Parent`;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="min-h-screen flex flex-col">
     <!-- Accessibility: skip to main content -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- ── Navigation ─────────────────────────────────────────── -->
-    <header class="border-b border-slate-200 bg-white sticky top-0 z-40">
+    <!-- ── Top colour accent strip ───────────────────────────────── -->
+    <div class="h-1 bg-gradient-to-r from-brand-400 via-brand-500 to-sky-400" aria-hidden="true"></div>
+
+    <!-- ── Navigation ─────────────────────────────────────────────── -->
+    <header class="border-b border-slate-200 bg-white/95 backdrop-blur-sm sticky top-0 z-40">
       <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
-        <a href="/" class="flex items-center gap-2 font-bold text-xl text-brand-700 hover:text-brand-600 transition-colors">
-          <!-- Simple shield icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-brand-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M12 1.5a.75.75 0 0 1 .696.47l1.93 4.674 4.994.607a.75.75 0 0 1 .416 1.282l-3.65 3.428.908 4.933a.75.75 0 0 1-1.09.812L12 14.974l-4.204 2.732a.75.75 0 0 1-1.09-.812l.908-4.933-3.65-3.428a.75.75 0 0 1 .416-1.282l4.994-.607 1.93-4.673A.75.75 0 0 1 12 1.5Z" clip-rule="evenodd" />
-          </svg>
+        <a href="/" class="flex items-center gap-2.5 font-bold text-xl text-slate-900 hover:text-brand-700 transition-colors">
+          <!-- Heart icon — friendly & family-oriented -->
+          <span class="h-8 w-8 rounded-lg bg-brand-500 flex items-center justify-center shadow-sm shrink-0" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+            </svg>
+          </span>
           Dumb Parent
         </a>
-        <ul class="flex items-center gap-6 text-sm font-medium text-slate-600">
-          <li><a href="/age/under-5"   class="hover:text-brand-600 transition-colors">By Age</a></li>
-          <li><a href="/devices"       class="hover:text-brand-600 transition-colors">By Device</a></li>
-          <li><a href="/apps"          class="hover:text-brand-600 transition-colors">By App</a></li>
+        <ul class="flex items-center gap-1 text-sm font-medium text-slate-600">
+          <li><a href="/age/under-5" class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors">By Age</a></li>
+          <li><a href="/devices"     class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors">By Device</a></li>
+          <li><a href="/apps"        class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors">By App</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- ── Page content ───────────────────────────────────────── -->
+    <!-- ── Page content ───────────────────────────────────────────── -->
     <main id="main-content" class="flex-1">
       <slot />
     </main>
 
-    <!-- ── Footer ─────────────────────────────────────────────── -->
-    <footer class="border-t border-slate-200 bg-slate-50 mt-16">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 text-center text-sm text-slate-500">
-        <p>
-          Dumb Parent is a free resource to help parents keep their kids safer online.
-          Guides are community-maintained — always double-check settings with the latest
-          official documentation from the app or device maker.
-        </p>
-        <p class="mt-3">
-          Found an error or want to contribute?
-          <a
-            href="https://github.com/royletron/dumbparent"
-            class="text-brand-600 hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open an issue on GitHub
-          </a>
+    <!-- ── Footer ─────────────────────────────────────────────────── -->
+    <footer class="bg-slate-900 text-slate-400 mt-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+        <div class="flex flex-col sm:flex-row justify-between gap-8 pb-8 border-b border-slate-700/60">
+          <!-- Brand blurb -->
+          <div class="max-w-xs">
+            <div class="flex items-center gap-2 text-white font-bold text-lg mb-2">
+              <span class="h-7 w-7 rounded-lg bg-brand-500 flex items-center justify-center shrink-0" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+                </svg>
+              </span>
+              Dumb Parent
+            </div>
+            <p class="text-sm leading-relaxed">
+              A free resource helping parents keep their kids safer online.
+              Guides are community-maintained — always double-check with the latest
+              official documentation.
+            </p>
+          </div>
+          <!-- Nav columns -->
+          <div class="flex gap-10 text-sm shrink-0">
+            <div>
+              <p class="font-semibold text-slate-300 mb-3">Browse guides</p>
+              <ul class="space-y-2">
+                <li><a href="/age/under-5" class="hover:text-white transition-colors">By Age</a></li>
+                <li><a href="/devices"     class="hover:text-white transition-colors">By Device</a></li>
+                <li><a href="/apps"        class="hover:text-white transition-colors">By App</a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-semibold text-slate-300 mb-3">Contribute</p>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="https://github.com/royletron/dumbparent"
+                    class="hover:text-white transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >GitHub →</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="mt-6 text-xs text-center text-slate-600">
+          © {new Date().getFullYear()} Dumb Parent. Made with care for families everywhere.
         </p>
       </div>
     </footer>

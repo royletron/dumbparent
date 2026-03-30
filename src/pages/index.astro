@@ -13,33 +13,45 @@ import { AGE_GROUPS, AGE_GROUP_LABELS } from '../content/config';
 
 const recentGuides = (await getAllGuides()).slice(0, 6);
 
-// Emoji and colour per age group
+// Emoji, colour, and description per age group
 const ageConfig = {
-  'under-5': { emoji: '🍼', colour: 'bg-pink-50   border-pink-200   hover:border-pink-400',   text: 'text-pink-700'  },
-  '5-7':     { emoji: '🎮', colour: 'bg-purple-50  border-purple-200  hover:border-purple-400',  text: 'text-purple-700' },
-  '8-10':    { emoji: '📱', colour: 'bg-blue-50    border-blue-200    hover:border-blue-400',    text: 'text-blue-700'   },
-  '11-13':   { emoji: '🎧', colour: 'bg-teal-50    border-teal-200    hover:border-teal-400',    text: 'text-teal-700'   },
-  '14+':     { emoji: '💻', colour: 'bg-slate-50   border-slate-200   hover:border-slate-400',   text: 'text-slate-700'  },
+  'under-5': { emoji: '🍼', colour: 'bg-pink-50   border-pink-200   hover:border-pink-400   hover:bg-pink-100',  text: 'text-pink-700',   sub: 'text-pink-500',   desc: 'Toddlers & pre-school' },
+  '5-7':     { emoji: '🎮', colour: 'bg-purple-50  border-purple-200  hover:border-purple-400  hover:bg-purple-100', text: 'text-purple-700',  sub: 'text-purple-400',  desc: 'Early primary school'  },
+  '8-10':    { emoji: '📱', colour: 'bg-blue-50    border-blue-200    hover:border-blue-400    hover:bg-blue-100',   text: 'text-blue-700',    sub: 'text-blue-400',    desc: 'Upper primary school'  },
+  '11-13':   { emoji: '🎧', colour: 'bg-teal-50    border-teal-200    hover:border-teal-400    hover:bg-teal-100',   text: 'text-teal-700',    sub: 'text-teal-400',    desc: 'Middle school years'   },
+  '14+':     { emoji: '💻', colour: 'bg-slate-50   border-slate-200   hover:border-slate-400   hover:bg-slate-100',  text: 'text-slate-700',   sub: 'text-slate-400',   desc: 'Teens & young adults'  },
 } as const;
 ---
 
 <BaseLayout title="Home" description="Simple guides for parents setting up devices and apps safely for their kids.">
 
   <!-- ── Hero ───────────────────────────────────────────────────── -->
-  <section class="bg-gradient-to-b from-brand-700 to-brand-600 text-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
-      <h1 class="text-4xl sm:text-5xl font-bold mb-5 leading-tight">
+  <section class="relative bg-gradient-to-br from-brand-700 via-brand-600 to-sky-500 text-white overflow-hidden">
+    <!-- Subtle decorative circles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-white/5"></div>
+      <div class="absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-white/5"></div>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 text-white/90 text-sm font-medium px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+        </svg>
+        Free guides for parents
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold mb-5 leading-tight tracking-tight">
         Set up your kid's devices.<br class="hidden sm:block" /> Without the tech headache.
       </h1>
-      <p class="text-brand-100 text-lg sm:text-xl max-w-xl mx-auto mb-8">
+      <p class="text-brand-100 text-lg sm:text-xl max-w-xl mx-auto mb-10">
         Plain-English, step-by-step guides for every device and app — so you know
-        what your child can access and what to watch out for.
+        exactly what your child can access and what to watch out for.
       </p>
       <div class="flex flex-wrap gap-3 justify-center">
-        <a href="#by-age" class="bg-white text-brand-700 font-semibold px-6 py-3 rounded-lg hover:bg-brand-50 transition-colors">
+        <a href="#by-age" class="bg-white text-brand-700 font-semibold px-6 py-3 rounded-xl hover:bg-brand-50 transition-colors shadow-sm">
           Start by age →
         </a>
-        <a href="/devices" class="border border-white/40 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
+        <a href="/devices" class="border-2 border-white/40 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition-colors">
           Browse by device
         </a>
       </div>
@@ -48,8 +60,10 @@ const ageConfig = {
 
   <!-- ── Age group selection ─────────────────────────────────────── -->
   <section id="by-age" class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
-    <h2 class="text-2xl font-bold text-slate-900 mb-2">How old is your child?</h2>
-    <p class="text-slate-500 mb-8">Pick an age group to see device and app guides tailored to that stage.</p>
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-bold text-slate-900 mb-2">How old is your child?</h2>
+      <p class="text-slate-500">Pick an age group to see device and app guides tailored to that stage.</p>
+    </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
       {AGE_GROUPS.map((age) => {
@@ -57,10 +71,11 @@ const ageConfig = {
         return (
           <a
             href={`/age/${age}`}
-            class={`flex flex-col items-center gap-2 rounded-xl border-2 p-6 text-center transition-colors ${cfg.colour}`}
+            class={`flex flex-col items-center gap-2 rounded-2xl border-2 p-6 text-center transition-all duration-200 hover:scale-105 hover:shadow-md ${cfg.colour}`}
           >
-            <span class="text-4xl" role="img" aria-hidden="true">{cfg.emoji}</span>
-            <span class={`font-semibold text-sm ${cfg.text}`}>{AGE_GROUP_LABELS[age]}</span>
+            <span class="text-4xl leading-none" role="img" aria-hidden="true">{cfg.emoji}</span>
+            <span class={`font-semibold text-sm leading-snug ${cfg.text}`}>{AGE_GROUP_LABELS[age]}</span>
+            <span class={`text-xs leading-snug ${cfg.sub}`}>{cfg.desc}</span>
           </a>
         );
       })}
@@ -70,29 +85,35 @@ const ageConfig = {
   <!-- ── How it works ────────────────────────────────────────────── -->
   <section class="bg-slate-50 border-y border-slate-200">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
-      <h2 class="text-2xl font-bold text-slate-900 mb-10 text-center">How it works</h2>
-      <div class="grid sm:grid-cols-3 gap-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-12 text-center">How it works</h2>
+      <div class="grid sm:grid-cols-3 gap-10">
         {[
           {
+            num: '1',
             icon: '🔍',
             title: 'Find your guide',
-            body: 'Search by your child\'s age, the device they\'re using, or the app you want to set up.',
+            body: "Search by your child's age, the device they're using, or the app you want to set up.",
           },
           {
+            num: '2',
             icon: '🛠️',
             title: 'Follow the steps',
-            body: 'Clear, numbered instructions with screenshots. No jargon — if we use a tech term, we explain it.',
+            body: "Clear, numbered instructions with screenshots. No jargon — if we use a tech term, we explain it.",
           },
           {
+            num: '3',
             icon: '👀',
             title: 'Know the risks',
-            body: 'Every guide ends with an honest look at what still slips through — so you can decide what\'s right for your family.',
+            body: "Every guide ends with an honest look at what still slips through — so you can decide what's right for your family.",
           },
         ].map((item) => (
           <div class="flex flex-col items-center text-center gap-3">
-            <span class="text-4xl" role="img" aria-hidden="true">{item.icon}</span>
-            <h3 class="font-semibold text-slate-800">{item.title}</h3>
-            <p class="text-slate-600 text-sm">{item.body}</p>
+            <div class="relative">
+              <span class="text-4xl" role="img" aria-hidden="true">{item.icon}</span>
+              <span class="absolute -top-1 -right-3 h-5 w-5 rounded-full bg-brand-500 text-white text-xs font-bold flex items-center justify-center leading-none" aria-hidden="true">{item.num}</span>
+            </div>
+            <h3 class="font-semibold text-slate-800 text-base">{item.title}</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">{item.body}</p>
           </div>
         ))}
       </div>
@@ -103,8 +124,11 @@ const ageConfig = {
   {recentGuides.length > 0 && (
     <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
       <div class="flex justify-between items-baseline mb-8">
-        <h2 class="text-2xl font-bold text-slate-900">Latest guides</h2>
-        <a href="/devices" class="text-sm text-brand-600 hover:underline">View all →</a>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Latest guides</h2>
+          <p class="text-slate-500 text-sm mt-1">Recently updated — always accurate, never stale.</p>
+        </div>
+        <a href="/devices" class="text-sm font-medium text-brand-600 hover:text-brand-700 hover:underline transition-colors shrink-0">View all →</a>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {recentGuides.map((guide) => (
