@@ -1,0 +1,63 @@
+---
+/**
+ * /app/[app] — All guides for a specific app, grouped by device.
+ *
+ * This is the "found the app, now pick the device" flow.
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import { getAllGuides, getGuidesByApp } from '../../utils/guides';
+
+export async function getStaticPaths() {
+  const all = await getAllGuides();
+  const apps = [...new Set(all.map((g) => g.data.app).filter((a) => a !== 'device-setup'))];
+  return apps.map((app) => ({ params: { app } }));
+}
+
+const { app }  = Astro.params;
+const guides   = await getGuidesByApp(app);
+const appLabel = guides[0]?.data.appLabel ?? app;
+
+// Group by device
+const byDevice = guides.reduce<Record<string, typeof guides>>((acc, g) => {
+  (acc[g.data.deviceLabel] ??= []).push(g);
+  return acc;
+}, {});
+---
+
+<BaseLayout title={`${appLabel} guides`} description={`Parental control setup guides for ${appLabel} on different devices.`}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+
+    <nav class="text-sm text-slate-500 mb-6 flex gap-1 items-center">
+      <a href="/" class="hover:text-brand-600">Home</a>
+      <span>›</span>
+      <a href="/apps" class="hover:text-brand-600">Apps</a>
+      <span>›</span>
+      <span class="text-slate-700">{appLabel}</span>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">{appLabel}</h1>
+    <p class="text-slate-500 mb-10">
+      Choose the device your child uses to see the relevant setup guide.
+    </p>
+
+    {guides.length === 0 ? (
+      <p class="text-slate-500">No guides yet for this app.</p>
+    ) : (
+      <div class="space-y-10">
+        {Object.entries(byDevice).map(([deviceLabel, deviceGuides]) => (
+          <section>
+            <h2 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <span class="w-1 h-5 bg-brand-500 rounded-full" aria-hidden="true"></span>
+              {deviceLabel}
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {deviceGuides.map((guide) => <GuideCard guide={guide} />)}
+            </div>
+          </section>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

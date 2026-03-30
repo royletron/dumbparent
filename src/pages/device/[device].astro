@@ -1,0 +1,74 @@
+---
+/**
+ * /device/[device] — All guides for a specific device slug.
+ *
+ * Statically generated for every device that has at least one guide.
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import AgeTag from '../../components/AgeTag.astro';
+import { getAllGuides, getGuidesByDevice } from '../../utils/guides';
+import { AGE_GROUP_LABELS } from '../../content/config';
+
+export async function getStaticPaths() {
+  const all = await getAllGuides();
+  const devices = [...new Set(all.map((g) => g.data.device))];
+  return devices.map((device) => ({ params: { device } }));
+}
+
+const { device } = Astro.params;
+const guides     = await getGuidesByDevice(device);
+const label      = guides[0]?.data.deviceLabel ?? device;
+
+// Group by app
+const byApp = guides.reduce<Record<string, typeof guides>>((acc, g) => {
+  const key = g.data.app === 'device-setup' ? '__ Device setup' : g.data.appLabel;
+  (acc[key] ??= []).push(g);
+  return acc;
+}, {});
+
+// Collect all age groups covered
+const allAges = [...new Set(guides.flatMap((g) => g.data.ageGroups))];
+---
+
+<BaseLayout title={`${label} guides`} description={`Step-by-step parental control guides for ${label}.`}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+
+    <nav class="text-sm text-slate-500 mb-6 flex gap-1 items-center">
+      <a href="/" class="hover:text-brand-600">Home</a>
+      <span>›</span>
+      <a href="/devices" class="hover:text-brand-600">Devices</a>
+      <span>›</span>
+      <span class="text-slate-700">{label}</span>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">{label}</h1>
+
+    <div class="flex flex-wrap gap-2 mb-10">
+      {allAges.map((age) => (
+        <AgeTag age={age} label={AGE_GROUP_LABELS[age]} />
+      ))}
+    </div>
+
+    {guides.length === 0 ? (
+      <p class="text-slate-500">No guides yet for this device.</p>
+    ) : (
+      <div class="space-y-12">
+        {Object.entries(byApp)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([appLabel, appGuides]) => (
+            <section>
+              <h2 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                <span class="w-1 h-5 bg-brand-500 rounded-full" aria-hidden="true"></span>
+                {appLabel.startsWith('__ ') ? appLabel.slice(3) : appLabel}
+              </h2>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {appGuides.map((guide) => <GuideCard guide={guide} />)}
+              </div>
+            </section>
+          ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+/**
+ * AgeTag.astro
+ *
+ * Small pill badge showing an age group. Clicking it links to the
+ * age-specific browse page.
+ *
+ * Props:
+ *   age   - The age slug (e.g. '8-10')
+ *   label - Human-readable label (e.g. '8 – 10 years')
+ *   link  - Whether to render as a link (default: true)
+ */
+
+interface Props {
+  age: string;
+  label: string;
+  link?: boolean;
+}
+
+const { age, label, link = true } = Astro.props;
+const classes = 'inline-flex items-center text-xs font-medium bg-brand-100 text-brand-700 px-2.5 py-1 rounded-full hover:bg-brand-200 transition-colors';
+---
+
+{link ? (
+  <a href={`/age/${age}`} class={classes}>{label}</a>
+) : (
+  <span class={classes}>{label}</span>
+)}

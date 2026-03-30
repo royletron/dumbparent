@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-white text-slate-800 font-sans antialiased;
+  }
+  /* Make images in guides responsive by default */
+  .prose img {
+    @apply rounded-lg shadow-md w-full;
+  }
+}
+
+@layer components {
+  /* Reusable card used across the site */
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow;
+  }
+  .card-link {
+    @apply card block p-5 hover:border-brand-400;
+  }
+  /* Skip-to-content link for accessibility */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50
+           focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:shadow-lg;
+  }
+}

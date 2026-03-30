@@ -1,0 +1,28 @@
+---
+/**
+ * DifficultyBadge.astro
+ *
+ * Shows how technically difficult a guide is for the parent.
+ *
+ * Props:
+ *   level - 'easy' | 'medium' | 'hard'
+ */
+
+interface Props {
+  level: 'easy' | 'medium' | 'hard';
+}
+
+const { level } = Astro.props;
+
+const config = {
+  easy:   { label: 'Easy',   classes: 'bg-sky-100   text-sky-800   border-sky-200'   },
+  medium: { label: 'Medium', classes: 'bg-purple-100 text-purple-800 border-purple-200' },
+  hard:   { label: 'Advanced', classes: 'bg-slate-200 text-slate-700 border-slate-300' },
+} as const;
+
+const { label, classes } = config[level];
+---
+
+<span class={`inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full border ${classes}`}>
+  {label}
+</span>

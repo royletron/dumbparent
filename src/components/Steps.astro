@@ -1,0 +1,38 @@
+---
+/**
+ * Steps.astro
+ *
+ * Wrapper for a sequence of <Step> components. Handles the visual
+ * numbered list and connecting line.
+ *
+ * Usage in MDX:
+ *
+ *   import Steps from '../../../components/Steps.astro';
+ *   import Step  from '../../../components/Step.astro';
+ *
+ *   <Steps>
+ *     <Step title="Open Settings">...</Step>
+ *     <Step title="Tap Screen Time">...</Step>
+ *   </Steps>
+ */
+---
+
+<style>
+  /* Use CSS counters so step numbers are automatic and correct
+     even if steps are conditionally rendered. */
+  ol.steps-list {
+    counter-reset: steps;
+  }
+  ol.steps-list > li {
+    counter-increment: steps;
+  }
+  ol.steps-list > li .step-number::before {
+    content: counter(steps);
+  }
+</style>
+
+<ol class="steps-list relative list-none m-0 p-0 space-y-2">
+  <!-- Vertical connector line -->
+  <div class="absolute left-4 top-8 bottom-8 w-px bg-slate-200" aria-hidden="true"></div>
+  <slot />
+</ol>

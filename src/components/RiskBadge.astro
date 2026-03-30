@@ -1,0 +1,33 @@
+---
+/**
+ * RiskBadge.astro
+ *
+ * Shows the overall risk level of a guide once setup is complete.
+ * Colour-coded: green (low), amber (medium), red (high).
+ *
+ * Props:
+ *   level - 'low' | 'medium' | 'high'
+ */
+
+import type { RiskLevel } from '../content/config';
+
+interface Props {
+  level: RiskLevel;
+}
+
+const { level } = Astro.props;
+
+const config = {
+  low:    { label: 'Low risk',    classes: 'bg-green-100  text-green-800  border-green-200' },
+  medium: { label: 'Medium risk', classes: 'bg-amber-100  text-amber-800  border-amber-200' },
+  high:   { label: 'High risk',   classes: 'bg-red-100    text-red-800    border-red-200'   },
+} as const;
+
+const { label, classes } = config[level];
+---
+
+<span class={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border ${classes}`}>
+  <!-- Dot indicator -->
+  <span class="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true"></span>
+  {label}
+</span>

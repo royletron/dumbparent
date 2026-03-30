@@ -1,0 +1,195 @@
+---
+# ============================================================
+# GUIDE TEMPLATE — copy this file and fill in the details
+# ============================================================
+#
+# File naming convention:
+#   [device]-[app].mdx         e.g. ipad-youtube-kids.mdx
+#   [device]-device-setup.mdx  e.g. amazon-fire-device-setup.mdx
+#
+# Slugs are derived from the file path, so the URL will be:
+#   /guides/ipad-youtube-kids
+#
+# ============================================================
+
+# --- Required fields -----------------------------------------
+
+# Short headline for the guide (shown in cards and as page <h1>)
+title: "Setting up [App Name] on [Device]"
+
+# One or two sentence summary. Plain English, no jargon.
+description: "How to safely install and configure [App Name] for your child on [Device], including parental controls and what to watch out for."
+
+# Which age groups does this guide apply to?
+# Options: under-5 | 5-7 | 8-10 | 11-13 | 14+
+# Use a list — a guide can cover multiple age groups.
+ageGroups:
+  - "8-10"
+  - "11-13"
+
+# Device slug (lowercase, hyphenated). This drives the /device/[slug] page.
+# Examples: ipad | iphone | android-tablet | android-phone | amazon-fire
+#           windows-pc | mac | chromebook | nintendo-switch | playstation-5
+device: "ipad"
+
+# Human-readable device name shown in the UI
+deviceLabel: "iPad"
+
+# App slug (lowercase, hyphenated). Use "device-setup" for a general device guide.
+# Examples: youtube-kids | roblox | minecraft | tiktok | snapchat | instagram
+app: "youtube-kids"
+
+# Human-readable app name shown in the UI
+appLabel: "YouTube Kids"
+
+# --- Optional fields -----------------------------------------
+
+# Rough time for a parent to complete the setup
+timeRequired: "10 minutes"
+
+# How technically challenging is this for a non-technical parent?
+# Options: easy | medium | hard
+difficulty: "easy"
+
+# Does the parent need their own device/app to manage things?
+companionRequired: false
+# If true, list what they need:
+# companionDevices:
+#   - "Your own iPhone or Android phone"
+# companionApps:
+#   - "Google Family Link (free)"
+
+# How risky is this setup once complete?
+# low    = most things locked down well
+# medium = some gaps remain that need monitoring
+# high   = significant side-doors even after setup
+riskLevel: "medium"
+
+# Short plain-English summary of the main remaining risks
+riskSummary: "Describe in one sentence what parents should still watch out for after following this guide."
+
+# When did you last check these instructions are still accurate?
+lastUpdated: 2024-01-15
+
+# Optional: path to a cover/thumbnail image in /public/images/
+# coverImage: "/images/guides/ipad-youtube-kids.jpg"
+
+# Tags help with search and discovery
+tags:
+  - video
+  - streaming
+  - kids-app
+
+# ============================================================
+---
+
+{/*
+  ============================================================
+  GUIDE BODY — write your content below using MDX
+  ============================================================
+
+  You can use standard Markdown plus the special components
+  imported below. All component imports must go at the top of
+  the body, before any other content.
+
+  Available components (import as needed):
+    Steps / Step   — numbered setup steps
+    Callout        — tip / info / warning / danger boxes
+    WhatToExpect / CanDo / CannotDo — access summary table
+
+  ============================================================
+*/}
+
+import Steps      from '../../components/Steps.astro';
+import Step       from '../../components/Step.astro';
+import Callout    from '../../components/Callout.astro';
+import WhatToExpect from '../../components/WhatToExpect.astro';
+import CanDo      from '../../components/CanDo.astro';
+import CannotDo   from '../../components/CannotDo.astro';
+
+## Before you start
+
+Write a short paragraph here explaining any prerequisites — e.g. the child
+needs to have the device already, or you need to have a certain account set up.
+
+<Callout type="info" title="What you'll need">
+- The child's [Device] with the latest software update installed
+- An Apple ID / Google account set up for the device (if applicable)
+- About 10 minutes
+</Callout>
+
+---
+
+## Setting it up
+
+<Steps>
+  <Step title="Open the App Store">
+    Tap the **App Store** icon on the home screen. It looks like a blue circle
+    with a white letter "A".
+
+    {/* Add a screenshot here — save it to /public/images/guides/ first */}
+    {/* ![App Store icon on iPad home screen](/images/guides/ipad-app-store.jpg) */}
+  </Step>
+
+  <Step title="Search for [App Name]">
+    Tap the **Search** tab at the bottom of the screen, then type
+    **[App Name]** in the search box.
+
+    Make sure you download the one made by **[Developer Name]** — look for the
+    verified developer badge.
+  </Step>
+
+  <Step title="Open [App Name] and set up a parent account" optional>
+    This step is optional but recommended. A parent account lets you ...
+
+    <Callout type="tip">
+      You can always set up the parent account later — the app will prompt you
+      the first time you open it.
+    </Callout>
+  </Step>
+
+  <Step title="Turn on [key safety feature]">
+    Inside the app, go to **Settings → [Section] → [Toggle]** and turn it on.
+
+    <Callout type="warning" title="Don't skip this">
+      This feature is off by default. Make sure you enable it before handing
+      the device to your child.
+    </Callout>
+  </Step>
+</Steps>
+
+---
+
+## What your child can access
+
+<WhatToExpect>
+  <CanDo>Describe something the child CAN do with this setup</CanDo>
+  <CanDo>Another thing they can do</CanDo>
+  <CannotDo>Something that is blocked after setup</CannotDo>
+  <CannotDo>Another blocked thing</CannotDo>
+</WhatToExpect>
+
+---
+
+## Side doors to watch out for
+
+Even with everything set up correctly, there are things that can still slip
+through. This section is not meant to scare you — just to keep you informed.
+
+<Callout type="danger" title="Side door: [name of risk]">
+  Explain the risk in plain English. What can happen, and what can you do about
+  it? Keep it factual and calm.
+</Callout>
+
+<Callout type="danger" title="Side door: [another risk]">
+  Describe another potential gap.
+</Callout>
+
+---
+
+## Tips for ongoing management
+
+- **Check in regularly** — describe a good habit
+- **Review [specific setting]** — explain why periodically checking this matters
+- **Have a conversation** — a brief note reminding parents that the best
+  safeguard is an open dialogue with their child

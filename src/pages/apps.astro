@@ -1,0 +1,49 @@
+---
+/**
+ * /apps — Browse all apps that have at least one guide.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllApps, getGuidesByApp } from '../utils/guides';
+
+const apps = await getAllApps();
+
+const appData = await Promise.all(
+  apps.map(async ({ slug, label }) => {
+    const guides = await getGuidesByApp(slug);
+    const devices = [...new Set(guides.map((g) => g.data.deviceLabel))];
+    return { slug, label, count: guides.length, devices };
+  })
+);
+---
+
+<BaseLayout title="Browse by App" description="Find parental control guides for specific apps.">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+
+    <nav class="text-sm text-slate-500 mb-6 flex gap-1 items-center">
+      <a href="/" class="hover:text-brand-600">Home</a>
+      <span>›</span>
+      <span class="text-slate-700">Apps</span>
+    </nav>
+
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">Browse by app</h1>
+    <p class="text-slate-500 mb-10">
+      Find the app you want to set up, then choose the device your child uses.
+    </p>
+
+    {appData.length === 0 ? (
+      <p class="text-slate-500">No guides yet — check back soon.</p>
+    ) : (
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {appData.map(({ slug, label, count, devices }) => (
+          <a href={`/app/${slug}`} class="card-link flex flex-col gap-2">
+            <span class="font-semibold text-slate-800">{label}</span>
+            <span class="text-sm text-slate-500">
+              {count} guide{count !== 1 ? 's' : ''} · {devices.join(', ')}
+            </span>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>
