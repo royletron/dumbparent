@@ -9,19 +9,30 @@
   body {
     @apply bg-white text-slate-800 font-sans antialiased;
   }
+  /* Smooth anchor scroll with nav offset */
+  [id] {
+    @apply scroll-mt-20;
+  }
   /* Make images in guides responsive by default */
   .prose img {
     @apply rounded-lg shadow-md w-full;
+  }
+  /* Better focus rings for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500 rounded;
   }
 }
 
 @layer components {
   /* Reusable card used across the site */
   .card {
-    @apply bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow;
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm transition-all duration-200;
+  }
+  .card:hover {
+    @apply shadow-md border-slate-300;
   }
   .card-link {
-    @apply card block p-5 hover:border-brand-400;
+    @apply card block p-5 hover:border-brand-300 hover:-translate-y-0.5;
   }
   /* Skip-to-content link for accessibility */
   .skip-link {
